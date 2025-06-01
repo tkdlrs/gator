@@ -2,35 +2,26 @@ package main
 
 import (
 	"fmt"
+	"log"
 
 	"github.com/tkdlrs/gator/internal/config"
 )
 
 func main() {
-	fmt.Println("start")
-	fmt.Println("----------------------------")
-	//
-	fmt.Println("Start first Read")
-	aConfig, err := config.Read()
+	cfg, err := config.Read()
 	if err != nil {
-		fmt.Println("Error in first read")
-		return
+		log.Fatalf("error reading config: %v", err)
 	}
-	fmt.Println("Fin first Read")
+	fmt.Printf("Read config: %+v\n", cfg)
 	//
-	fmt.Println("Start set user")
-	aConfig.SetUser()
-	fmt.Println("Fin set user")
-	//
-	fmt.Println("Start second Read")
-	uConfig, err := config.Read()
+	err = cfg.SetUser("levi")
 	if err != nil {
-		fmt.Println("Error in second read")
-		return
+		log.Fatalf("Could not set current user: %v", err)
 	}
-	fmt.Println("Fin second Read")
-	fmt.Println(uConfig)
 	//
-	fmt.Println("----------------------------")
-	fmt.Println("end")
+	cfg, err = config.Read()
+	if err != nil {
+		log.Fatalf("error reading config: %v", err)
+	}
+	fmt.Printf("Read config again: %+v\n", cfg)
 }
