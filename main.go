@@ -16,22 +16,21 @@ type state struct {
 }
 
 func main() {
-	//
-	dbURL := "postgres://postgres:postgres@localhost:5432/gator"
-	db, err := sql.Open("postgres", dbURL)
-	if err != nil {
-		log.Fatalf("error rctabase URL: %v", err)
-	}
-	dbQueries := database.New(db)
-	//
 	cfg, err := config.Read()
 	if err != nil {
 		log.Fatalf("error reading config: %v", err)
 	}
 	//
+	db, err := sql.Open("postgres", cfg.DbUrl)
+	if err != nil {
+		log.Fatalf("error connecting to DB: %v", err)
+	}
+	defer db.Close()
+	dbQueries := database.New(db)
+	//
 	programState := &state{
-		cfg: &cfg,
 		db:  dbQueries,
+		cfg: &cfg,
 	}
 	//
 	cmds := commands{
