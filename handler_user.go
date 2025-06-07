@@ -56,25 +56,24 @@ func handlerLogin(s *state, cmd command) error {
 	return nil
 }
 
-func printUser(user database.User) {
-	fmt.Printf("	* ID:		%v\n", user.ID)
-	fmt.Printf("	* Name:		%v\n", user.Name)
-}
-
-func handlerGetUsers(s *state, cmd command) error {
+func handlerListUsers(s *state, cmd command) error {
 	users, err := s.db.GetUsers(context.Background())
 	if err != nil {
-		return fmt.Errorf("error %v", err)
+		return fmt.Errorf("couldn't list users: %w", err)
 	}
 	//
-	for i := 0; i < len(users); i++ {
-		currentUser := users[i]
-		userTemplateString := currentUser.Name
-		if currentUser.Name == s.cfg.CurrentUserName {
-			userTemplateString += " (current)"
+	for _, user := range users {
+		if user.Name == s.cfg.CurrentUserName {
+			fmt.Printf("* %v (current)\n", user.Name)
+			continue
 		}
-		fmt.Println("* " + userTemplateString)
+		fmt.Printf("* %v\n", user.Name)
 	}
 	//
 	return nil
+}
+
+func printUser(user database.User) {
+	fmt.Printf(" * ID:      %v\n", user.ID)
+	fmt.Printf(" * Name:    %v\n", user.Name)
 }
