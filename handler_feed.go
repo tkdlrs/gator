@@ -9,12 +9,7 @@ import (
 	"github.com/tkdlrs/gator/internal/database"
 )
 
-func handlerAddFeed(s *state, cmd command) error {
-	// Get the ID of the current user.
-	user, err := s.db.GetUser(context.Background(), s.cfg.CurrentUserName)
-	if err != nil {
-		return fmt.Errorf("couldn't find user: %w", err)
-	}
+func handlerAddFeed(s *state, cmd command, user database.User) error {
 	//
 	if len(cmd.Args) != 2 {
 		return fmt.Errorf("usage: %s <feed name> <url>", cmd.Name)

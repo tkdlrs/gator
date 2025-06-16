@@ -9,12 +9,7 @@ import (
 	"github.com/tkdlrs/gator/internal/database"
 )
 
-func handlerFollow(s *state, cmd command) error {
-	// Get the ID of the current user.
-	user, err := s.db.GetUser(context.Background(), s.cfg.CurrentUserName)
-	if err != nil {
-		return fmt.Errorf("couldn't find user: %w", err)
-	}
+func handlerFollow(s *state, cmd command, user database.User) error {
 	//
 	if len(cmd.Args) != 1 {
 		return fmt.Errorf("usage: %s <url>", cmd.Name)
@@ -44,11 +39,7 @@ func handlerFollow(s *state, cmd command) error {
 	return nil
 }
 
-func handlerListFeedFollows(s *state, cmd command) error {
-	user, err := s.db.GetUser(context.Background(), s.cfg.CurrentUserName)
-	if err != nil {
-		return err
-	}
+func handlerListFeedFollows(s *state, cmd command, user database.User) error {
 	//
 	feedFollows, err := s.db.GetFeedFollowsForUser(context.Background(), user.ID)
 	if err != nil {
