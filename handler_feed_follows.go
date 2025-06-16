@@ -59,11 +59,6 @@ func handlerListFeedFollows(s *state, cmd command, user database.User) error {
 	return nil
 }
 
-func printFeedFollow(username, feedname string) {
-	fmt.Printf("* User:          %s\n", username)
-	fmt.Printf("* Feed:          %s\n", feedname)
-}
-
 func handlerUnfollow(s *state, cmd command, user database.User) error {
 	if len(cmd.Args) != 1 {
 		return fmt.Errorf("usage: %s <url>", cmd.Name)
@@ -84,6 +79,11 @@ func handlerUnfollow(s *state, cmd command, user database.User) error {
 		return fmt.Errorf("unable to delete feed: %v", err)
 	}
 	//
-	fmt.Println("Successfully deleted (unfollowed) the feed")
+	fmt.Printf("%s feed successfully unfollowed", feed.Name)
 	return nil
+}
+
+func printFeedFollow(username, feedname string) {
+	fmt.Printf("* User:          %s\n", username)
+	fmt.Printf("* Feed:          %s\n", feedname)
 }
