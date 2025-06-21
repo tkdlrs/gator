@@ -62,6 +62,11 @@ func handlerListUsers(s *state, cmd command) error {
 		return fmt.Errorf("couldn't list users: %w", err)
 	}
 	//
+	if len(users) == 0 {
+		fmt.Println("No users yet.")
+		return nil
+	}
+	//
 	for _, user := range users {
 		if user.Name == s.cfg.CurrentUserName {
 			fmt.Printf("* %v (current)\n", user.Name)
