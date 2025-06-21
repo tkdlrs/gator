@@ -4,7 +4,7 @@
 
 ## Overview
 
-Is a guided project from [Boot.dev](https://www.boot.dev/) < https://www.boot.dev/ >.
+Gator is a guided project from [Boot.dev](https://www.boot.dev/) < https://www.boot.dev/ >.
 
 The project is building an RSS feed aggregator (hence the name 'gator') CLI tool.
 
