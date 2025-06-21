@@ -71,6 +71,6 @@ Q: How do I set up the config?
 A: You need to add a json file at the root of your machine that has your database connection string in it so your postgres database can work with the CLI appliction. Set the key `db_url` in this json file to have a value of your connection string. Oh! Also, set `sslmode` to disable within the connection string ~this application only works locally after being installed.
 
 Q: Idk what that means? / It still is not working for me what do I do?
-A: Go to Boot.dev and start learning.
+A: Go to Boot.dev and start learning. Or start crying to your chat bot, maybe it'll help you.
 
 ---
